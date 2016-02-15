@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Mandrill;
+using Mandrill.Models;
+using Mandrill.Requests.Messages;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
 using NotificationWebJob.Models;
 using Enum = NotificationWebJob.Models.Enum;
 
@@ -14,6 +22,20 @@ namespace NotificationWebJob.Controllers
 
 		public ActionResult Index()
 		{
+			//var db = new NotificationDb();
+			//foreach (var x in db.LogEventSubscriptionses)
+			//{
+			//	db.LogEventSubscriptionses.Remove(x);
+			//}
+
+			//foreach (var x in db.LogEventses)
+			//{
+			//	db.LogEventses.Remove(x);
+			//}
+
+
+
+			//db.SaveChanges();
 			return View();
 		}
 
@@ -39,7 +61,8 @@ namespace NotificationWebJob.Controllers
 			{
 				Id = Guid.NewGuid(),
 				ObjectTypeOfEvent = Enum.ObjectTypeOfEvent.MonthlyMeeting,
-				EventType = Enum.EventType.Add
+				EventType = Enum.EventType.Delete,
+				UserWhoSubscribed = "stpriyanka2011@gmail.com"
 			};
 
 			dbContext.LogEventSubscriptionses.Add(logEventSub);
@@ -55,12 +78,43 @@ namespace NotificationWebJob.Controllers
 			{
 				EventType = Enum.EventType.Add,
 				Id = Guid.NewGuid(),
-				UserWhoCreatesEvent = "somenameOREmail",
+				UserWhoCreatesEvent = "st@yahoo.com",
 				ObjectTypeOfEvent = Enum.ObjectTypeOfEvent.MonthlyMeeting
 			};
 			dbContext.LogEventses.Add(logEvent);
 			await dbContext.SaveChangesAsync();
+
+
+			var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
+			CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+
+			CloudQueue queue = queueClient.GetQueueReference("logeventslog");
+			queue.CreateIfNotExists();
+			var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(logEvent));
+			queue.AddMessage(queueMessage);
+
+
+			List<string> c = dbContext.LogEventSubscriptionses.Where(r => r.EventType == logEvent.EventType
+				&& r.ObjectTypeOfEvent == logEvent.ObjectTypeOfEvent).Select(r => r.UserWhoSubscribed).ToList();
+
+			var mandrill = new MandrillApi(ConfigurationManager.AppSettings["MandrillApiKey"]);
+
+			foreach (var row in c)
+			{
+				var email = new EmailMessage
+				{
+					Text = "body",
+					FromEmail = "priyanka@worldfavor.com",
+					To = new List<EmailAddress> {new EmailAddress {Email = row}},
+					Subject = "Sub"
+				};
+
+				await mandrill.SendMessage(new SendMessageRequest(email));
+			}
+
 			return Content("new row created");
+
+
 		}
 
 	}

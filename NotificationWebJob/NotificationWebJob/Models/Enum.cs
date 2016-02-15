@@ -10,7 +10,7 @@ namespace NotificationWebJob.Models
 		public enum EventType
 		{
 			Add = 1,
-			Delete2
+			Delete=2
 		}
 
 		public enum ObjectTypeOfEvent
