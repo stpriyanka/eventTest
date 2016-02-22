@@ -27,21 +27,32 @@ namespace ActivateNotificationWebJob
 			List<string> c = dbContext.LogEventSubscriptionses.Where(r => r.EventType == logEvent.EventType
 	                         && r.ObjectTypeOfEvent == logEvent.ObjectTypeOfEvent)
 							 .Select(r => r.UserWhoSubscribed).ToList();
-
-			var mandrill = new MandrillApi(ConfigurationManager.AppSettings["MandrillApiKey"]);
-
-			foreach (var row in c)
+			
+			
+			var y = new LogEventSubscriptions()
+			
 			{
-				var email = new EmailMessage
-				{
-					Text = "body",
-					FromEmail = "priyanka@worldfavor.com",
-					To = new List<EmailAddress> { new EmailAddress { Email = row } },
-					Subject = "Sub"
-				};
+				UserWhoSubscribed = "priyanka_tasnia@yahoo.com",
+				Id = Guid.NewGuid()
+			};
 
-				 mandrill.SendMessage(new SendMessageRequest(email));
-			}
+			dbContext.LogEventSubscriptionses.Add(y);
+			dbContext.SaveChanges();
+
+			//var mandrill = new MandrillApi(ConfigurationManager.AppSettings["MandrillApiKey"]);
+
+			//foreach (var row in c)
+			//{
+			//	var email = new EmailMessage
+			//	{
+			//		Text = "body",
+			//		FromEmail = "priyanka@worldfavor.com",
+			//		To = new List<EmailAddress> { new EmailAddress { Email = row } },
+			//		Subject = "Sub"
+			//	};
+
+			//	 mandrill.SendMessage(new SendMessageRequest(email));
+			//}
 		}
 	}
 }

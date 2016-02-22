@@ -78,7 +78,7 @@ namespace NotificationWebJob.Controllers
 			{
 				EventType = Enum.EventType.Add,
 				Id = Guid.NewGuid(),
-				UserWhoCreatesEvent = "st@yahoo.com",
+				UserWhoCreatesEvent = "pri.com",
 				ObjectTypeOfEvent = Enum.ObjectTypeOfEvent.MonthlyMeeting
 			};
 			dbContext.LogEventses.Add(logEvent);
@@ -94,28 +94,48 @@ namespace NotificationWebJob.Controllers
 			queue.AddMessage(queueMessage);
 
 
-			List<string> c = dbContext.LogEventSubscriptionses.Where(r => r.EventType == logEvent.EventType
-				&& r.ObjectTypeOfEvent == logEvent.ObjectTypeOfEvent).Select(r => r.UserWhoSubscribed).ToList();
+			//List<string> c = dbContext.LogEventSubscriptionses.Where(r => r.EventType == logEvent.EventType
+			//	&& r.ObjectTypeOfEvent == logEvent.ObjectTypeOfEvent).Select(r => r.UserWhoSubscribed).ToList();
 
-			var mandrill = new MandrillApi(ConfigurationManager.AppSettings["MandrillApiKey"]);
+			//var mandrill = new MandrillApi(ConfigurationManager.AppSettings["MandrillApiKey"]);
 
-			foreach (var row in c)
-			{
-				var email = new EmailMessage
-				{
-					Text = "body",
-					FromEmail = "priyanka@worldfavor.com",
-					To = new List<EmailAddress> {new EmailAddress {Email = row}},
-					Subject = "Sub"
-				};
+			//foreach (var row in c)
+			//{
+			//	var email = new EmailMessage
+			//	{
+			//		Text = "body",
+			//		FromEmail = "priyanka@worldfavor.com",
+			//		To = new List<EmailAddress> {new EmailAddress {Email = row}},
+			//		Subject = "Sub"
+			//	};
 
-				await mandrill.SendMessage(new SendMessageRequest(email));
-			}
+			//	await mandrill.SendMessage(new SendMessageRequest(email));
+			//}
 
 			return Content("new row created");
 
 
 		}
+
+
+		public async Task<ActionResult> NotificationUserID()
+		{
+			var notificationContext = new NotificationDb();
+			var notificationSignaldbSet = new NotificationSignalR()
+			{
+				Id = 1,
+				RecipientOrganizationId = 4536,
+				RecipientUserId = 2,
+				Seen = false
+			};
+
+			notificationContext.NotificationSignalRs.Add(notificationSignaldbSet);
+			await notificationContext.SaveChangesAsync();
+
+			return Content("new row has been created in notificationDBSET");
+		}
+
+
 
 	}
 }

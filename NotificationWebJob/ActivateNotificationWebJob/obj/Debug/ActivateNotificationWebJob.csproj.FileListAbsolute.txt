@@ -107,3 +107,5 @@ C:\github\event\NotificationWebJob\ActivateNotificationWebJob\bin\Debug\zh-Hant\
 C:\github\event\NotificationWebJob\ActivateNotificationWebJob\obj\Debug\ActivateNotificationWebJob.csprojResolveAssemblyReference.cache
 C:\github\event\NotificationWebJob\ActivateNotificationWebJob\obj\Debug\ActivateNotificationWebJob.exe
 C:\github\event\NotificationWebJob\ActivateNotificationWebJob\obj\Debug\ActivateNotificationWebJob.pdb
+C:\github\event\NotificationWebJob\ActivateNotificationWebJob\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\github\event\NotificationWebJob\ActivateNotificationWebJob\bin\Debug\Microsoft.AspNet.SignalR.Core.xml

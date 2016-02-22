@@ -173,3 +173,10 @@ C:\github\event\NotificationWebJob\NotificationWebJob\bin\ko\System.Spatial.reso
 C:\github\event\NotificationWebJob\NotificationWebJob\bin\ru\System.Spatial.resources.dll
 C:\github\event\NotificationWebJob\NotificationWebJob\bin\zh-Hans\System.Spatial.resources.dll
 C:\github\event\NotificationWebJob\NotificationWebJob\bin\zh-Hant\System.Spatial.resources.dll
+C:\github\event\NotificationWebJob\NotificationWebJob\obj\Debug\NotificationWebJob.Migrations.InitialCreate.resources
+C:\github\event\NotificationWebJob\NotificationWebJob\obj\Debug\NotificationWebJob.csproj.GenerateResource.Cache
+C:\github\event\NotificationWebJob\NotificationWebJob\obj\Debug\NotificationWebJob.Migrations.AddnotificationSignalREntity.resources
+C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
