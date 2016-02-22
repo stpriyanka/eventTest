@@ -33,8 +33,10 @@ namespace NotificationWebJob
 			// on production should have a query if seen== false then trigger 'send'
 
 			var name = _myDbContext.LogEventSubscriptionses.Where(r => r.UserWhoSubscribed == Context.User.Identity.Name).Select(r => r.UserWhoSubscribed);
+			var id = _myDbContext.LogEventSubscriptionses.Where(r => r.UserWhoSubscribed == Context.User.Identity.Name).Select(r => r.Id);
 
-			Clients.All.send(name);
+			Clients.Caller.send(name);
+			Clients.Caller.send(id);
 
 			//implement method html in index
 
