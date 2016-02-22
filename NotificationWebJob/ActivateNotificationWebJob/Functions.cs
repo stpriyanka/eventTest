@@ -25,7 +25,7 @@ namespace ActivateNotificationWebJob
 			var dbContext = new NotificationDb();
 
 			List<string> c = dbContext.LogEventSubscriptionses.Where(r => r.EventType == logEvent.EventType
-	                         && r.ObjectTypeOfEvent == logEvent.ObjectTypeOfEvent)
+							 && r.ObjectTypeOfEvent == logEvent.ObjectTypeOfEvent)
 							 .Select(r => r.UserWhoSubscribed).ToList();
 			
 			

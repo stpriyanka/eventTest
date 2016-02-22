@@ -18,7 +18,7 @@
 				$('#messages').append('<li>' + message + '</li>');
 			};
 
-
+			$.connection.hub.stop();
 			$.connection.hub.start().done(function () {
 
 				//send msg without this part
@@ -35,7 +35,7 @@
 
 <div class="jumbotron">
 
-	<ul id="messages"></ul>
+	<ul id="messages" style="text-decoration: none;font-weight: bold;font-family: sans-serif"></ul>
 
 </div>
 

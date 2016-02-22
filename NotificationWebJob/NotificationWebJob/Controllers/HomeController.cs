@@ -76,9 +76,9 @@ namespace NotificationWebJob.Controllers
 			var dbContext = new NotificationDb();
 			var logEvent = new LogEvents()
 			{
-				EventType = Enum.EventType.Add,
+				EventType = Enum.EventType.Delete,
 				Id = Guid.NewGuid(),
-				UserWhoCreatesEvent = "pri.com",
+				UserWhoCreatesEvent = "stpriyanka2011@gmail.com",
 				ObjectTypeOfEvent = Enum.ObjectTypeOfEvent.MonthlyMeeting
 			};
 			dbContext.LogEventses.Add(logEvent);

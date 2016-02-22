@@ -180,3 +180,4 @@ C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.Signa
 C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.Core.xml
 C:\github\event\NotificationWebJob\NotificationWebJob\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\github\event\NotificationWebJob\NotificationWebJob\obj\Debug\NotificationWebJob.Migrations.addedNotificationTable.resources

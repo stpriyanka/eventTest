@@ -81,8 +81,8 @@ namespace NotificationWebJob.Controllers
 			{
 				case SignInStatus.Success:
 
-					var context = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
-					context.Clients.All.send();
+					//var context = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
+					//context.Clients.All.send();
 
 
 					return RedirectToLocal(returnUrl);

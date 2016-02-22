@@ -1,4 +1,6 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using System.Data.Entity;
+using System.Web.Script.Serialization;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Concurrent;
@@ -15,32 +17,52 @@ namespace NotificationWebJob
 	[Authorize]
 	public class SignalRHub : Hub
 	{
+		readonly NotificationDb _myDbContext = new NotificationDb();
 
-		NotificationDb _myDbContext = new NotificationDb();
+		private static int _connectionCounter = 0;
 
-		public async Task sendMessage(string message)
+
+		public async Task SendMessage(string message)
 		{
-
-			//message = "sssssssssssssssssssss";
-
-			Clients.All.send(message);
+			Clients.Caller.send("something");
 		}
+
 
 
 		public override Task OnConnected()
 		{
 
-			// on production should have a query if seen== false then trigger 'send'
+			var name = _myDbContext.LogEventSubscriptionses.FirstOrDefault
+				         (r => r.UserWhoSubscribed == Context.User.Identity.Name);
 
-			var name = _myDbContext.LogEventSubscriptionses.Where(r => r.UserWhoSubscribed == Context.User.Identity.Name).Select(r => r.UserWhoSubscribed);
-			var id = _myDbContext.LogEventSubscriptionses.Where(r => r.UserWhoSubscribed == Context.User.Identity.Name).Select(r => r.Id);
 
-			Clients.Caller.send(name);
-			Clients.Caller.send(id);
+			var obj = new LogEvents()
+			{
+				Id = name.Id,
+				UserWhoCreatesEvent = name.UserWhoSubscribed,
+				EventType = name.EventType,
+				ObjectTypeOfEvent = name.ObjectTypeOfEvent
 
-			//implement method html in index
+			};
+			
+			var json = new JavaScriptSerializer().Serialize(obj);
+			
+			_connectionCounter++;
+			
+			Clients.All.send("Current active number of connection " + _connectionCounter);
+
+			Clients.All.send(json);
 
 			return base.OnConnected();
+		}
+
+
+		public override Task OnDisconnected(bool stopCalled)
+		{
+
+			_connectionCounter--;
+
+			return base.OnDisconnected(stopCalled);
 		}
 	}
 

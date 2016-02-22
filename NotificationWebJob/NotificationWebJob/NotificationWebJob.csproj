@@ -220,6 +220,10 @@
     <Compile Include="Migrations\201602181406102_AddnotificationSignalREntity.Designer.cs">
       <DependentUpon>201602181406102_AddnotificationSignalREntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602221806239_addedNotificationTable.cs" />
+    <Compile Include="Migrations\201602221806239_addedNotificationTable.Designer.cs">
+      <DependentUpon>201602221806239_addedNotificationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LogEventSubscriptions.cs" />
     <Compile Include="Models\LogEvents.cs" />
@@ -325,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602181406102_AddnotificationSignalREntity.resx">
       <DependentUpon>201602181406102_AddnotificationSignalREntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602221806239_addedNotificationTable.resx">
+      <DependentUpon>201602221806239_addedNotificationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
