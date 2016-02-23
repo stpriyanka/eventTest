@@ -24,34 +24,44 @@ namespace NotificationWebJob
 
 		public async Task SendMessage(string message)
 		{
-			Clients.Caller.send("something");
+			//const int orgid = 4356;
+
+
+			//var version = Context.QueryString["orgID"];
+			//if (version != orgid.ToString())
+			//{
+			//	Clients.Caller.send(version);
+			//}
+
+			//var name = _myDbContext.LogEventSubscriptionses.FirstOrDefault
+			//			 (r => r.UserWhoSubscribed == Context.User.Identity.Name);
+
+
+			//var obj = new LogEvents()
+			//{
+			//	Id = name.Id,
+			//	UserWhoCreatesEvent = name.UserWhoSubscribed,
+			//	EventType = name.EventType,
+			//	ObjectTypeOfEvent = name.ObjectTypeOfEvent
+
+			//};
+
+			//var json = new JavaScriptSerializer().Serialize(obj);
+			//Clients.All.send(json);
+
+			Clients.Caller.send(message);
 		}
 
 
 
 		public override Task OnConnected()
 		{
-
-			var name = _myDbContext.LogEventSubscriptionses.FirstOrDefault
-				         (r => r.UserWhoSubscribed == Context.User.Identity.Name);
-
-
-			var obj = new LogEvents()
-			{
-				Id = name.Id,
-				UserWhoCreatesEvent = name.UserWhoSubscribed,
-				EventType = name.EventType,
-				ObjectTypeOfEvent = name.ObjectTypeOfEvent
-
-			};
-			
-			var json = new JavaScriptSerializer().Serialize(obj);
-			
 			_connectionCounter++;
-			
-			Clients.All.send("Current active number of connection " + _connectionCounter);
 
-			Clients.All.send(json);
+			Clients.All.send(_connectionCounter);
+			
+			//Clients.All.send("Current active number of connection " + _connectionCounter);
+
 
 			return base.OnConnected();
 		}
